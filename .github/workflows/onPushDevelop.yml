@@ -4,7 +4,7 @@ name: onPushDevelop
 # events but only for the develop branch
 on:
   push:
-    branches: [ develop ]
+    branches: [ dev-build ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
