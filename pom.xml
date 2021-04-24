@@ -48,6 +48,7 @@
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
+            <version>7.0.2</version>
         </dependency>
         <!-- Vault -->
         <dependency>
@@ -74,6 +75,11 @@
         <dependency>
             <groupId>us.dynmap</groupId>
             <artifactId>dynmap-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.massivecraft.massivecore</groupId>
+            <artifactId>MassiveCore</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
