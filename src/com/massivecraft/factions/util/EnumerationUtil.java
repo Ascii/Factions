@@ -233,8 +233,8 @@ public class EnumerationUtil
 		"DROWNED", // Minecraft 1.13
 		"PILLAGER", // Minecraft 1.14
 		"RAVAGER", // Minercraft 1.14
+		"ZOMBIFIED_PIGLIN", // Minecraft 1.16 (rename of PIG_ZOMBIE)
 		"PIG_ZOMBIE", // Minecraft 1.? . Changed name to ZOMBIFIED_PIGLIN, kept for backwards compatibility
-		"ZOMBIFIED_PIGLIN", //Minecraft 1.16
 		"HOGLIN",
 		"ZOGLIN",
 		"PIGLIN_BRUTE"

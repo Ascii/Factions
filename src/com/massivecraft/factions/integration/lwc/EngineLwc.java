@@ -44,7 +44,10 @@ public class EngineLwc extends Engine
 		}
 		else
 		{
-			LWC.getInstance().getModuleLoader().removeModules(Factions.get());
+			if (LWC.getInstance() != null)
+			{
+				LWC.getInstance().getModuleLoader().removeModules(Factions.get());
+			}
 		}
 	}
 	

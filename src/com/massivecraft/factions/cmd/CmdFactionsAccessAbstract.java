@@ -8,7 +8,6 @@ import com.massivecraft.factions.entity.MPerm.MPermable;
 import com.massivecraft.factions.util.AsciiMap;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.ps.PS;
-import com.massivecraft.massivecore.ps.PSFormatHumanSpace;
 import com.massivecraft.massivecore.util.Txt;
 
 import java.util.Collection;
@@ -59,7 +58,7 @@ public abstract class CmdFactionsAccessAbstract extends FactionsCommand
 
 	public void sendAccessInfo()
 	{
-		String chunkDesc = AsciiMap.showChunkCoords(chunk) ? " at " + chunk.toString(PSFormatHumanSpace.get()) : "";
+		String chunkDesc = AsciiMap.getChunkDescWithName(chunk, ta);
 		Object title = "Access" + chunkDesc;
 		title = Txt.titleize(title);
 		message(title);
@@ -80,7 +79,7 @@ public abstract class CmdFactionsAccessAbstract extends FactionsCommand
 		Faction faction = ta.getHostFaction();
 
 
-		String chunkDesc = AsciiMap.showChunkCoords(chunk) ? " at " + chunk.toString(PSFormatHumanSpace.get()) : "";
+		String chunkDesc = AsciiMap.getChunkDescWithName(chunk, ta);
 		String grantedDenied = granted ? "granted" : "denied";
 		String mpermableDesc = mpermable.getDisplayName(msender);
 

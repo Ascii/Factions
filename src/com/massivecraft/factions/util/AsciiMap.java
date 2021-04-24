@@ -1,12 +1,14 @@
 package com.massivecraft.factions.util;
 
 import com.massivecraft.factions.RelationParticipator;
+import com.massivecraft.factions.TerritoryAccess;
 import com.massivecraft.factions.entity.Board;
 import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.ps.PS;
+import com.massivecraft.massivecore.ps.PSFormatHumanSpace;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
 import org.bukkit.GameRule;
@@ -112,7 +114,7 @@ public class AsciiMap
 		ret.add(this.getTitle());
 		ret.addAll(this.getLines());
 		ret.add(this.getFactionLegend());
-		
+
 		// Return
 		return ret;
 	}
@@ -164,31 +166,42 @@ public class AsciiMap
 		for (int deltaX = startX; deltaX < WIDTH; deltaX++)
 		{
 			boolean isMiddle = deltaX == WIDTH_HALF && deltaZ == this.getHeightHalf();
-			factionChar = isMiddle ? KEY_MIDDLE : this.getCharFaction(deltaZ, deltaX);
+			factionChar = isMiddle ? KEY_MIDDLE : this.getCharChunk(deltaZ, deltaX);
 			ret = ret.add(factionChar);
 		}
 		
 		// Return
 		return ret;
 	}
+
+	private Mson getCharChunk(int deltaZ, int deltaX)
+	{
+		PS herePs = this.getTopLeft().plusChunkCoords(deltaX, deltaZ);
+		Faction hereFaction = this.getBoard().getFactionAt(herePs);
+
+		String chunkName = this.getBoard().getTerritoryAccessAt(herePs).getChunkName();
+		Mson charFaction = getCharFaction(hereFaction);
+		String tooltip = charFaction.getTooltip();
+		if (chunkName != null) tooltip += "\n" + ChatColor.WHITE + chunkName;
+		Mson charChunk = charFaction.tooltip(tooltip);
+		return charChunk;
+	}
 	
-	private Mson getCharFaction(int deltaZ, int deltaX)
+	private Mson getCharFaction(Faction faction)
 	{
 		// Calculate overflow
 		int index = this.getFactionChars().size();
 		if (!this.isOverflown() && index >= KEY_SIZE) this.setOverflown(true);
-		
-		PS herePs = this.getTopLeft().plusChunkCoords(deltaX, deltaZ);
-		Faction hereFaction = this.getBoard().getFactionAt(herePs);
-		Mson factionChar = this.getFactionChars().get(hereFaction);
+
+		Mson factionChar = this.getFactionChars().get(faction);
 		
 		// Is Wilderness or known?
-		if (hereFaction.isNone()) return KEY_WILDERNESS;
+		if (faction.isNone()) return KEY_WILDERNESS;
 		if (factionChar != null) return factionChar;
 		
 		// Create descriptions
-		ChatColor color = hereFaction.getColorTo(this.getRelationParticipator());
-		String name = hereFaction.getName(this.getRelationParticipator());
+		ChatColor color = faction.getColorTo(this.getRelationParticipator());
+		String name = faction.getName(this.getRelationParticipator());
 		String tooltip = color.toString() + name;
 		
 		// Is overflown?
@@ -199,7 +212,7 @@ public class AsciiMap
 		factionChar = factionChar.tooltip(tooltip);
 		
 		// Store for later use
-		this.getFactionChars().put(hereFaction, factionChar);
+		this.getFactionChars().put(faction, factionChar);
 		
 		// Return
 		return factionChar;
@@ -235,6 +248,24 @@ public class AsciiMap
 	public static boolean showChunkCoords(World w)
 	{
 		return ! w.getGameRuleValue(GameRule.REDUCED_DEBUG_INFO);
+	}
+
+	public static String getChunkDesc(PS chunk)
+	{
+		return showChunkCoords(chunk) ? " at " + chunk.toString(PSFormatHumanSpace.get()) : "";
+	}
+
+	public static String getChunkDescWithName(PS chunk, TerritoryAccess ta)
+	{
+		String name = ta.getChunkName();
+		if (name == null) return getChunkDesc(chunk);
+
+		String ret = Txt.parse(" at <h>%s", name);
+		if (showChunkCoords(chunk))
+		{
+			ret += Txt.parse(" <i>(%s<i>)", chunk.toString(PSFormatHumanSpace.get()));
+		}
+		return ret;
 	}
 
 }

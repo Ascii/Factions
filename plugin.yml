@@ -26,6 +26,7 @@ permissions:
   factions.access.view: {description: view access, default: false}
   factions.override: {description: enable override mode, default: false}
   factions.basecommand: {description: use factions base command, default: false}
+  factions.chunkname: {description: set chunk name, default: false}
   factions.claim: {description: claim faction territory, default: false}
   factions.claim.one: {description: claim a single chunk, default: false}
   factions.claim.auto: {description: claim as you walk around, default: false}
@@ -163,6 +164,7 @@ permissions:
       factions.access.view: true
       factions.override: true
       factions.basecommand: true
+      factions.chunkname: true
       factions.claim: true
       factions.claim.one: true
       factions.claim.auto: true
@@ -344,6 +346,7 @@ permissions:
       factions.access.inspect: true
       factions.access.view: true
       factions.basecommand: true
+      factions.chunkname: true
       factions.claim: true
       factions.claim.one: true
       factions.claim.auto: true

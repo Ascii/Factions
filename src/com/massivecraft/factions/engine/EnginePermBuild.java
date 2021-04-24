@@ -84,9 +84,9 @@ public class EnginePermBuild extends Engine
 		return !perm.has(mplayer, ps, verboose);
 	}
 	
-	public static Boolean protect(ProtectCase protectCase, boolean verboose, Object senderObject, PS ps, Object object, Cancellable cancellable)
+	public static Boolean protect(ProtectCase protectCase, boolean verboose, Player player, PS ps, Object object, Cancellable cancellable)
 	{
-		Boolean ret = isProtected(protectCase, verboose, MPlayer.get(senderObject), ps, object);
+		Boolean ret = isProtected(protectCase, verboose, MPlayer.get(player), ps, object);
 		if (Boolean.TRUE.equals(ret) && cancellable != null) cancellable.setCancelled(true);
 
 		return ret;
@@ -96,16 +96,17 @@ public class EnginePermBuild extends Engine
 	{
 		if (!(event instanceof Cancellable)) return true;
 		if (MUtil.isntPlayer(entity)) return false;
+		Player player = (Player) entity;
 		boolean verboose = !isFake(event);
-		return protect(ProtectCase.BUILD, verboose, entity, PS.valueOf(block), block, (Cancellable) event);
+		return protect(ProtectCase.BUILD, verboose, player, PS.valueOf(block), block, (Cancellable) event);
 	}
 	
-	public static Boolean useItem(Entity entity, Block block, Material material, Cancellable cancellable)
+	public static Boolean useItem(Player player, Block block, Material material, Cancellable cancellable)
 	{
-		return protect(ProtectCase.USE_ITEM, true, entity, PS.valueOf(block), material, cancellable);
+		return protect(ProtectCase.USE_ITEM, true, player, PS.valueOf(block), material, cancellable);
 	}
 	
-	public static Boolean useEntity(Entity player, Entity entity, boolean verboose, Cancellable cancellable)
+	public static Boolean useEntity(Player player, Entity entity, boolean verboose, Cancellable cancellable)
 	{
 		return protect(ProtectCase.USE_ENTITY, verboose, player, PS.valueOf(entity), entity, cancellable);
 	}
@@ -249,6 +250,7 @@ public class EnginePermBuild extends Engine
 		// ... fired by a player ...
 		ProjectileSource projectileSource = entityProjectile.getShooter();
 		if (MUtil.isntPlayer(projectileSource)) return;
+		Player player = (Player) projectileSource;
 		
 		// ... and hits an entity which is edited on damage (and thus likely to burn) ...
 		Entity entityTarget = event.getEntity();
@@ -256,7 +258,7 @@ public class EnginePermBuild extends Engine
 
 		// ... and the player can't build there, cancel the event
 		Block block = entityTarget.getLocation().getBlock();
-		protect(ProtectCase.BUILD, false, projectileSource, PS.valueOf(block), block, event);
+		protect(ProtectCase.BUILD, false, player, PS.valueOf(block), block, event);
 	}
 	
 	// -------------------------------------------- //

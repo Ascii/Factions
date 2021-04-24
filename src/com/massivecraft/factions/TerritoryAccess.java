@@ -29,6 +29,10 @@ public class TerritoryAccess
 	private final Set<String> grantedIds;
 	public Set<String> getGrantedIds() { return this.grantedIds; }
 
+	// default is null
+	private final String chunkName;
+	public String getChunkName() { return this.chunkName; }
+
 	// -------------------------------------------- //
 	// FIELDS: VERSION
 	// -------------------------------------------- //
@@ -40,9 +44,10 @@ public class TerritoryAccess
 	// -------------------------------------------- //
 	
 	// The simple ones
-	public TerritoryAccess withHostFactionId(String hostFactionId) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
-	public TerritoryAccess withHostFactionAllowed(Boolean hostFactionAllowed) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
-	public TerritoryAccess withGrantedIds(Collection<String> grantedIds) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
+	public TerritoryAccess withHostFactionId(String hostFactionId) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds, chunkName); }
+	public TerritoryAccess withHostFactionAllowed(Boolean hostFactionAllowed) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds, chunkName); }
+	public TerritoryAccess withGrantedIds(Collection<String> grantedIds) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds, chunkName); }
+	public TerritoryAccess withChunkName(String chunkName) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds, chunkName); }
 	
 	// The intermediate ones
 	public TerritoryAccess withGranted(MPermable mpermable, boolean with)
@@ -54,7 +59,7 @@ public class TerritoryAccess
 	{
 		if (this.getHostFactionId().equals(grantedId))
 		{
-			return valueOf(hostFactionId, with, grantedIds);
+			return valueOf(hostFactionId, with, grantedIds, chunkName);
 		}
 		
 		Set<String> grantedIds = new MassiveSet<>(this.getGrantedIds());
@@ -66,7 +71,7 @@ public class TerritoryAccess
 		{
 			grantedIds.remove(grantedId);
 		}
-		return valueOf(hostFactionId, hostFactionAllowed, grantedIds);
+		return valueOf(hostFactionId, hostFactionAllowed, grantedIds, chunkName);
 	}
 
 	// -------------------------------------------- //
@@ -95,9 +100,10 @@ public class TerritoryAccess
 		this.hostFactionId = null;
 		this.hostFactionAllowed = true;
 		this.grantedIds = null;
+		this.chunkName = null;
 	}
 	
-	private TerritoryAccess(String hostFactionId, Boolean hostFactionAllowed, Collection<String> grantedIds)
+	private TerritoryAccess(String hostFactionId, Boolean hostFactionAllowed, Collection<String> grantedIds, String chunkName)
 	{
 		if (hostFactionId == null) throw new NullPointerException("hostFactionId");
 		if (grantedIds == null) throw new NullPointerException("grantedIds");
@@ -112,23 +118,25 @@ public class TerritoryAccess
 		this.grantedIds = Collections.unmodifiableSet(grantedIdsInner);
 		
 		this.hostFactionAllowed = (hostFactionAllowed == null || hostFactionAllowed);
+
+		this.chunkName = chunkName;
 	}
 	
 	// -------------------------------------------- //
 	// FACTORY: VALUE OF
 	// -------------------------------------------- //
 	
-	public static TerritoryAccess valueOf(String hostFactionId, Boolean hostFactionAllowed, Collection<String> grantedIds)
+	public static TerritoryAccess valueOf(String hostFactionId, Boolean hostFactionAllowed, Collection<String> grantedIds, String chunkName)
 	{
 		if (hostFactionId == null) throw new NullPointerException("hostFactionId");
 		if (grantedIds == null) throw new NullPointerException("grantedIds");
-		return new TerritoryAccess(hostFactionId, hostFactionAllowed, grantedIds);
+		return new TerritoryAccess(hostFactionId, hostFactionAllowed, grantedIds, chunkName);
 	}
 	
 	public static TerritoryAccess valueOf(String hostFactionId)
 	{
 		if (hostFactionId == null) throw new NullPointerException("hostFactionId");
-		return valueOf(hostFactionId, null, Collections.emptySet());
+		return valueOf(hostFactionId, null, Collections.emptySet(), null);
 	}
 	
 	// -------------------------------------------- //
@@ -150,7 +158,7 @@ public class TerritoryAccess
 	// The host faction is still allowed (default) and no faction or player has been granted explicit access (default).
 	public boolean isDefault()
 	{
-		return this.isHostFactionAllowed() && this.getGrantedIds().isEmpty();
+		return this.isHostFactionAllowed() && this.getGrantedIds().isEmpty() && this.getChunkName() == null;
 	}
 
 	// -------------------------------------------- //

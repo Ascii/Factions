@@ -48,7 +48,7 @@ public class CmdFactionsRankEditCreate extends FactionsCommand
 		}
 		if (ranks.stream().map(Rank::getPriority).anyMatch(i -> i.equals(priority)))
 		{
-			throw new MassiveException().addMsg("<b>There is already a with priority <h>%s<b>.", priority);
+			throw new MassiveException().addMsg("<b>There is already a rank with priority <h>%s<b>.", priority);
 		}
 		if (priority > faction.getLeaderRank().getPriority())
 		{

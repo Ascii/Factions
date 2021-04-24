@@ -68,11 +68,11 @@ public class CmdFactionsAccessInspect extends FactionsCommand
 
 		if (world2Chunks.isEmpty())
 		{
-			msg("%s <i>has no special access in <reset>%s <i>.", mpermable.getDisplayName(msender), faction.describeTo(msender));
+			msg("%s <i>has no special access in <reset>%s<i>.", mpermable.getDisplayName(msender), faction.describeTo(msender));
 			return;
 		}
 
-		msg("%s <i>has special access in <reset>%s <i> in the following chunks:", mpermable.getDisplayName(msender), faction.describeTo(msender));
+		msg("%s <i>has special access in <reset>%s <i>in the following chunks:", mpermable.getDisplayName(msender), faction.describeTo(msender));
 
 		for (Entry<String, Set<PS>> entry : world2Chunks.entrySet())
 		{

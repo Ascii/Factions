@@ -40,27 +40,7 @@ public enum Rel implements Colorized, Named, MPerm.MPermable
 			"your faction", "your faction", "your faction", "your faction",
 			"Faction"
 	) { @Override public ChatColor getColor() { return MConf.get().colorMember; } },
-	
-	/*RECRUIT(
-		"a recruit in your faction", "recruits in your faction", "", "",
-		"Recruit"
-	) { @Override public String getPrefix() { return MConf.get().prefixRecruit; } },
-	
-	MEMBER(
-		"a member in your faction", "members in your faction", "your faction", "your factions",
-		"Member"
-	) { @Override public String getPrefix() { return MConf.get().prefixMember; } },
-	
-	OFFICER(
-		"an officer in your faction", "officers in your faction", "", "",
-		"Officer", "Moderator"
-	) { @Override public String getPrefix() { return MConf.get().prefixOfficer; } },
-	
-	LEADER(
-		"your faction leader", "your faction leader", "", "",
-		"Leader", "Admin", "Owner"
-	) { @Override public String getPrefix() { return MConf.get().prefixLeader; } },*/
-	
+
 	// END OF LIST
 	;
 	

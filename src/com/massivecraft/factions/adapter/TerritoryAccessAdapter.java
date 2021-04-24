@@ -26,6 +26,7 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 	public static final String HOST_FACTION_ID = "hostFactionId";
 	public static final String HOST_FACTION_ALLOWED = "hostFactionAllowed";
 	public static final String GRANTED_IDS = "grantedIds";
+	public static final String CHUNK_NAME = "chunkName";
 	
 	public static final Type SET_OF_STRING_TYPE = new TypeToken<Set<String>>(){}.getType();
 			
@@ -57,7 +58,8 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 		String hostFactionId = null;
 		Boolean hostFactionAllowed = null;
 		Set<String> grantedIds = Collections.emptySet();
-		
+		String chunkName = null;
+
 		// Read variables (test old values first)
 		JsonElement element = null;
 		
@@ -69,8 +71,11 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 
 		element = obj.get(GRANTED_IDS);
 		if (element != null) grantedIds = context.deserialize(element, SET_OF_STRING_TYPE);
+
+		element = obj.get(CHUNK_NAME);
+		if (element != null) chunkName = element.getAsString();
 		
-		return TerritoryAccess.valueOf(hostFactionId, hostFactionAllowed, grantedIds);
+		return TerritoryAccess.valueOf(hostFactionId, hostFactionAllowed, grantedIds, chunkName);
 	}
 
 	@Override
@@ -97,6 +102,11 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 		if (!src.getGrantedIds().isEmpty())
 		{
 			obj.add(GRANTED_IDS, context.serialize(src.getGrantedIds(), SET_OF_STRING_TYPE));
+		}
+
+		if (src.getChunkName() != null)
+		{
+			obj.addProperty(CHUNK_NAME, src.getChunkName());
 		}
 
 		obj.add(MigratorUtil.VERSION_FIELD_NAME, new JsonPrimitive(src.version));

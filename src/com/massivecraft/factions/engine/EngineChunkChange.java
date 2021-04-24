@@ -253,6 +253,14 @@ public class EngineChunkChange extends Engine
 				return;
 			}
 
+			// ... and they must actually be claiming ...
+			if (newFaction.isNone())
+			{
+				mplayer.msg("<b>You can't unclaim land belonging to others.");
+				event.setCancelled(true);
+				return;
+			}
+
 			// ... the relation may forbid ...
 			if (oldFaction.getRelationTo(newFaction).isAtLeast(Rel.TRUCE))
 			{
@@ -262,7 +270,7 @@ public class EngineChunkChange extends Engine
 			}
 
 			// ... the old faction might not be inflated enough ...
-			if (oldFaction.getPowerRounded() > oldFaction.getLandCount() - oldChunks.size())
+			if (oldFaction.getPowerRounded() > oldFaction.getLandCount() - oldChunks.size() && MConf.get().claimingFromOthersMustBeInflated)
 			{
 				mplayer.msg("%s<i> owns this land and is strong enough to keep it.", oldFaction.getName(mplayer));
 				event.setCancelled(true);

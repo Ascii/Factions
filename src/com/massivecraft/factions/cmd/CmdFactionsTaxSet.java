@@ -7,6 +7,7 @@ import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.entity.MPlayerColl;
 import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeDouble;
@@ -53,7 +54,7 @@ public class CmdFactionsTaxSet extends FactionsCommand
 		if ( ! MPerm.getPermTax().has(msender, faction, true)) return;
 
 		Rank rank = faction.getRank(taxable);
-		MPlayer mplayer = MPlayer.get(taxable);
+		MPlayer mplayer = MPlayerColl.get().get(taxable, false);
 
 		String name;
 		if (Faction.IDENTIFIER_TAX_BASE.equalsIgnoreCase(taxable)) name = "Default";
