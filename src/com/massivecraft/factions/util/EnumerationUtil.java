@@ -68,24 +68,32 @@ public class EnumerationUtil
 	
 	// Interacting with these materials placed in the terrain results in door toggling.
 	public static final BackstringSet<Material> MATERIALS_DOOR = new BackstringSet<>(Material.class,
-		"OAK_DOOR",
-		"OAK_TRAPDOOR",
-		"OAK_FENCE_GATE",
 		"ACACIA_DOOR",
+		"ACACIA_FENCE_GATE",
 		"ACACIA_TRAPDOOR",
-		"AKACIA_FENCE_GATE",
 		"BIRCH_DOOR",
-		"BIRCH_TRAPDOOR",
 		"BIRCH_FENCE_GATE",
+		"BIRCH_TRAPDOOR",
+		"CRIMSON_DOOR",
+		"CRIMSON_FENCE_GATE",
+		"CRIMSON_TRAPDOOR",
 		"DARK_OAK_DOOR",
-		"DARK_OAK_TRAPDOOR",
 		"DARK_OAK_FENCE_GATE",
+		"DARK_OAK_TRAPDOOR",
+		"IRON_DOOR",
+		"IRON_TRAPDOOR",
 		"JUNGLE_DOOR",
-		"JUNGLE_TRAPDOOR",
 		"JUNGLE_FENCE_GATE",
+		"JUNGLE_TRAPDOOR",
+		"OAK_DOOR",
+		"OAK_FENCE_GATE",
+		"OAK_TRAPDOOR",
 		"SPRUCE_DOOR",
+		"SPRUCE_FENCE_GATE",
 		"SPRUCE_TRAPDOOR",
-		"SPRUCE_FENCE_GATE"
+		"WARPED_DOOR",
+		"WARPED_FENCE_GATE",
+		"WARPED_TRAPDOOR"
 	);
 	
 	public static boolean isMaterialDoor(Material material)
@@ -198,12 +206,12 @@ public class EnumerationUtil
 		"ENDERMITE", // Minecraft 1.8
 		"ENDER_DRAGON", // Minecraft 1.?
 		"EVOKER",
+		"EVOKER_FANGS",
 		"GUARDIAN", // Minecraft 1.8
 		"GHAST", // Minecraft 1.?
 		"GIANT", // Minecraft 1.?
 		"HUSK",
 		"MAGMA_CUBE", // Minecraft 1.?
-		"PIG_ZOMBIE", // Minecraft 1.?
 		"POLAR_BEAR", // Minecraft 1.10
 		"SILVERFISH", // Minecraft 1.?
 		"SHULKER", // Minecraft 1.10
@@ -225,7 +233,11 @@ public class EnumerationUtil
 		"DROWNED", // Minecraft 1.13
 		"PILLAGER", // Minecraft 1.14
 		"RAVAGER", // Minercraft 1.14
-		"ZOMBIFIED_PIGLIN" // Minecraft 1.16 (rename of PIG_ZOMBIE)
+		"ZOMBIFIED_PIGLIN", // Minecraft 1.16 (rename of PIG_ZOMBIE)
+		"PIG_ZOMBIE", // Minecraft 1.? . Changed name to ZOMBIFIED_PIGLIN, kept for backwards compatibility
+		"HOGLIN",
+		"ZOGLIN",
+		"PIGLIN_BRUTE"
 	);
 	
 	public static boolean isEntityTypeMonster(EntityType entityType)
@@ -264,7 +276,9 @@ public class EnumerationUtil
 		"FOX", // Minecraft 1.14
 		"PANDA", // Minecraft 1.14
 		"LLAMA", // Minecraft 1.14
-		"LLAMA_SPIT" // Minecraft 1.14
+		"LLAMA_SPIT", // Minecraft 1.14
+		"BEE",
+		"STRIDER"
 	);
 	
 	public static boolean isEntityTypeAnimal(EntityType entityType)

@@ -53,26 +53,27 @@
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
+            <version>1.7.3</version>
         </dependency>
         <!-- LWC -->
         <dependency>
-            <groupId>com.griefcraft</groupId>
-            <artifactId>lwc</artifactId>
+            <groupId>com.griefcraft.lwc</groupId>
+            <artifactId>Modern-LWC</artifactId>
         </dependency>
         <!-- PlaceholderAPI -->
         <dependency>
-          <groupId>me.clip</groupId>
-          <artifactId>placeholderapi</artifactId>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
         </dependency>
         <!-- MineverseChat/VentureChat -->
         <dependency>
-          <groupId>mineverse.Aust1n46.chat</groupId>
-          <artifactId>MineverseChat</artifactId>
+            <groupId>mineverse.Aust1n46.chat</groupId>
+            <artifactId>MineverseChat</artifactId>
         </dependency>
         <!-- Dynmap -->
         <dependency>
-          <groupId>us.dynmap</groupId>
-          <artifactId>dynmap</artifactId>
+            <groupId>us.dynmap</groupId>
+            <artifactId>dynmap-api</artifactId>
         </dependency>
     </dependencies>
 
@@ -95,5 +96,4 @@
             </resource>
         </resources>
     </build>
-
 </project>
